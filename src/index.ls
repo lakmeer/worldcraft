@@ -8,30 +8,25 @@
 
 { id } = require \prelude-ls
 
-{ Editor } = require \./editor
+{ Editor }    = require \./editor
+{ World2D }   = require \./world-2d
 { Evaluator } = require \./evaluator
 
 
-# Prepare
+# Instantiate modules
 
-time    = Date.now!
-Δt      = 0
-stopped = no
-
-canvas = document.create-element \canvas
-canvas.class-name = \canvas
-canvas.width = window.inner-width
-canvas.height = window.inner-height
-
-ctx = canvas.get-context \2d
-document.body.append-child canvas
+world = new World2D
+world.install document.body
 
 evaluator = new Evaluator \ls
-evaluator.globals <<< { log, canvas, ctx }
+evaluator.globals <<< { log, canvas: world.canvas, ctx: world.ctx }
 
 editor = new Editor
 editor.install document.body
 editor.on-execute evaluator~eval
+
+
+# Prepare starting state
 
 editor.load """
   @frame = (time) ->
@@ -51,28 +46,10 @@ editor.load """
 """
 
 
-# Per-frame
-
-frame = ->
-  request-animation-frame frame unless stopped
-  Δt   := Date.now! - time
-  time := Date.now!
-  ctx.clear-rect 0, 0, canvas.width, canvas.height
-  canvas.width = canvas.width
-  evaluator.scope.frame? time, Δt
-
-
-# Prod self into life
+# Begin automatically
 
 delay 300, ->
   editor.execute-chunk!
-  frame!
+  world.start -> evaluator.scope.frame ...
 
-
-# Register the escape key as a quick hack to shut it down
-
-document.add-event-listener \keydown, ({ which, shift-key }) ->
-  if shift-key and which is 27
-    log "Halting frame loop"
-    stopped := true
 
