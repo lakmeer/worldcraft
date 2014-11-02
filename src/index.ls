@@ -30,27 +30,29 @@ editor.on-execute evaluator~eval
 
 editor.load """
   @frame = (time) ->
-    x1 = 200 *  Math.sin time/300
-    y1 = 200 *  Math.cos time/300
-    x2 = 200 * -Math.sin time/300
-    y2 = 200 * -Math.cos time/300
+    count = 50
+    size = canvas.height/count
+    width = canvas.width/3
+    speed = 0.002
 
-    ctx.move-to canvas.width/2 + y1, canvas.height/2 + y1
-    ctx.line-to canvas.width/2 + x2, canvas.height/2 + x2
-    ctx.move-to canvas.width/2 + x2, canvas.height/2 + x1
-    ctx.line-to canvas.width/2 + y2, canvas.height/2 + y1
+    for i in [0 to count]
+      amp = Math.sin(time*speed + i * Math.PI / 24)
+      pos = canvas.width/2 + width/2 * amp
+      col = Math.sin(time*speed + i * Math.PI / 24 + Math.PI/2)
+      ctx.fill-style = "rgb(\#{128 + Math.floor(col/2 * 255)}, 0, 0)"
+      ctx.fill-rect pos, size * i, size, size * 4
 
-    ctx.move-to canvas.width/2 + x1, canvas.height/2 + y1
-    ctx.line-to canvas.width/2 + y2, canvas.height/2 + x2
-    ctx.move-to canvas.width/2 + x1, canvas.height/2 + x2
-    ctx.line-to canvas.width/2 + y1, canvas.height/2 + y2
-    ctx.stroke!
+      amp = -Math.sin(time*speed + i * Math.PI / 24)
+      col = -Math.sin(time*speed + i * Math.PI / 24 + Math.PI/2)
+      pos = canvas.width/2 + width/2 * amp
+      ctx.fill-style = "rgb(0, 0, \#{128 + Math.floor(col/2 * 255)})"
+      ctx.fill-rect pos, size * i, size, size * 4
 """
 
 
 # Begin automatically
 
 delay 300, ->
-  editor.execute-chunk!
+  editor.execute-all!
   world.start -> evaluator.scope.frame ...
 

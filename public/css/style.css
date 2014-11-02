@@ -19,10 +19,11 @@ html, body {
 }
 
 .canvas {
-
+  z-index: 0;
 }
 
 .editor {
+  z-index: 1;
   padding: 0.5em 0.75em;
   background: transparent;
   border: 0px none;

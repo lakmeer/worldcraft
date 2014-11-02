@@ -55,10 +55,6 @@ export class Editor
 
   # Implementation agnostic
 
-  install: (host) ->
-    host.append-child @dom
-    @dom.focus!
-
   execute: (code) ->
     try [ λ code for λ in @callbacks.execute ]
 
@@ -76,6 +72,10 @@ export class Editor
     @callbacks.execute.push λ
 
   # Implementation-specific
+
+  install: (host) ->
+    host.append-child @dom
+    @dom.focus!
 
   get-cursor-position: ->
     @dom.selection-start
@@ -132,6 +132,10 @@ export class EditorCM extends Editor
 
 
   # Implementation-specific
+
+  install: (host) ->
+    host.append-child @dom
+    @cm.focus!
 
   load: ->
     @cm.set-value it

@@ -1,4 +1,11 @@
 
+# Require
+
+{ log } = require \./helpers
+
+
+# World class (2d until I get THREE up and running)
+
 export class World2D
 
   ->
@@ -18,9 +25,9 @@ export class World2D
     @canvas.height = window.inner-height
 
     # Register the shift+escape as a quick hack to shut it down
-    document.add-event-listener \keydown, ({ which, shift-key }) ->
+    document.add-event-listener \keydown, ({ which, shift-key }) ~>
       if shift-key and which is 27
-        log "Halting frame loop"
+        console.warn "Halting frame loop"
         @running := no
 
   clear: ->
