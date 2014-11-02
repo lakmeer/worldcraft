@@ -23,7 +23,12 @@
     "browserify": "^5.13.1",
     "gulp-connect": "^2.0.6",
     "gulp-watch": "^0.6.8",
-    "vinyl-source-stream": "^1.0.0"
+    "vinyl-source-stream": "^1.0.0",
+    "coffee-script": "^1.8.0",
+    "gulp-util": "^3.0.1"
+  },
+  "browser": {
+    "three": "./lib/three/index.js"
   },
   "browserify": {
     "transform": [
