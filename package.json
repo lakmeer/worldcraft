@@ -1,7 +1,7 @@
 {
-  "name": "gulp-ls-browserify-starter",
+  "name": "worldcraft",
   "version": "0.0.1",
-  "description": "Starter project so I don't have to keep setting this up",
+  "description": "VR Live-coding using web technologies",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,7 +25,8 @@
     "gulp-watch": "^0.6.8",
     "vinyl-source-stream": "^1.0.0",
     "coffee-script": "^1.8.0",
-    "gulp-util": "^3.0.1"
+    "gulp-util": "^3.0.1",
+    "codemirror": "^4.7.0"
   },
   "browser": {
     "three": "./lib/three/index.js"

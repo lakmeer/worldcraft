@@ -31,13 +31,16 @@ html, body {
   transition: background-color 0.1s;
 }
 
+.editor::selection,
+.editor .flashing,
 .editor.flashing {
   background-color: rgba(20,130,250, 0.5);
   color: white;
 }
 
-.editor::selection {
-  background-color: rgba(20,130,250, 0.5);
-  color: white;
+.editor .CodeMirror {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
