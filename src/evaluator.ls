@@ -15,7 +15,7 @@ export class Evaluator
   std-args = [ \log ]
   sec-args = [ \window \top \document ]
 
-  (lang = \ls) ->
+  (lang = \javascript) ->
 
     log "new Evaluator (#lang)"
 
@@ -25,9 +25,9 @@ export class Evaluator
 
     # These are very large modules so only require what you need
     @compile = switch lang
-    | \ls => -> LiveScript.compile it, bare: true
-    | \cs => -> coffee-script.compile it, bare: true
-    | \js => id
+    | \livescript   => -> LiveScript.compile it, bare: true
+    | \coffeescript => -> coffee-script.compile it, bare: true
+    | \javascript   => id
 
 
   eval: (source) ->

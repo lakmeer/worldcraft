@@ -15,20 +15,14 @@
 
 # Instantiate modules
 
-world = new World2D
-world.install document.body
-
-evaluator = new Evaluator \ls
-evaluator.globals <<< { log, canvas: world.canvas, ctx: world.ctx }
-
-editor = new EditorCM mode: \livescript
-editor.install document.body
-editor.on-execute evaluator~eval
+world     = new World2D
+evaluator = new Evaluator \livescript
+editor    = new EditorCM mode: \livescript
 
 
-# Prepare starting state
+# Example programs
 
-editor.load """
+double-helix2d = """
   @frame = (time) ->
     count = 50
     size = canvas.height/count
@@ -50,7 +44,13 @@ editor.load """
 """
 
 
-# Begin automatically
+# Assemble modules and set intial state
+
+evaluator.globals <<< { log, canvas: world.canvas, ctx: world.ctx }
+editor.install document.body
+editor.load double-helix2d
+editor.on-execute evaluator~eval
+world.install document.body
 
 delay 300, ->
   editor.execute-all!
