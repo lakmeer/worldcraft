@@ -4,12 +4,11 @@
 { log } = require \./helpers
 
 
-# World class (2d until I get THREE up and running)
+# World class
 
 export class World2D
 
   ->
-
     # Dom
     @canvas = document.create-element \canvas
     @ctx    = @canvas.get-context \2d
@@ -26,7 +25,7 @@ export class World2D
 
     # Register the shift+escape as a quick hack to shut it down
     document.add-event-listener \keydown, ({ which, shift-key }) ~>
-      if shift-key and which is 27
+      if which is 27
         console.warn "Halting frame loop"
         @running := no
 

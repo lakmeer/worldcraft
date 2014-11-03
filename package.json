@@ -26,11 +26,7 @@
     "vinyl-source-stream": "^1.0.0",
     "coffee-script": "^1.8.0",
     "gulp-util": "^3.0.1",
-    "codemirror": "^4.7.0",
-    "three": "^0.66.9"
-  },
-  "browser": {
-    "three": "./lib/three/index.js"
+    "codemirror": "^4.7.0"
   },
   "browserify": {
     "transform": [
