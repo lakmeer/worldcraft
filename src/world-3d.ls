@@ -21,7 +21,6 @@ export class World3D
 
   init: ->
     @renderer.set-size window.innerWidth, window.innerHeight
-    @renderer.set-clear-color 0xffffff
     @renderer.dom-element.class-name = \canvas
 
     # Register the shift+escape as a quick hack to shut it down
@@ -29,6 +28,9 @@ export class World3D
       if which is 27
         console.warn "Halting frame loop"
         @running := no
+
+  set-bg: ->
+    @renderer.set-clear-color it
 
   install: (host) ->
     host.append-child @renderer.dom-element

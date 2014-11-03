@@ -1,0 +1,59 @@
+/* technicolor theme for codemirror */
+
+.colors {
+  color: #fff;
+  color: #eee;
+  color: #ccc;
+  color: #888;
+  color: #222;
+  color: #f44;
+  color: #fb3;
+  color: #4f6;
+  color: #f3f;
+  color: #6bf;
+  color: #4df;
+}
+
+
+
+/* Color scheme */
+
+.cm-s-neo.CodeMirror {
+  color:#e0e2e5;
+  line-height:1.4375;
+  background-color: transparent !important;
+}
+.cm-s-neo .cm-comment {color:#888}
+.cm-s-neo .cm-keyword, .cm-s-neo .cm-property {color:#6bf}
+.cm-s-neo .cm-atom,.cm-s-neo .cm-number {color:#75438a}
+.cm-s-neo .cm-node,.cm-s-neo .cm-tag {color:#f44}
+.cm-s-neo .cm-string {color:#fb3;}
+.cm-s-neo .cm-variable,.cm-s-neo .cm-qualifier {color:#4f6}
+
+
+/* Editor styling */
+
+.cm-s-neo pre {
+  padding:0;
+}
+
+.cm-s-neo .CodeMirror-gutters {
+  border:none;
+  border-right:10px solid transparent;
+  background-color:transparent;
+}
+
+.cm-s-neo .CodeMirror-linenumber {
+  padding:0;
+  color:#e0e2e5;
+}
+
+.cm-s-neo .CodeMirror-guttermarker { color: #4df; }
+.cm-s-neo .CodeMirror-guttermarker-subtle { color: #444; }
+
+.cm-s-neo div.CodeMirror-cursor {
+  width: auto;
+  border: 0;
+  background: rgba(155,157,162,0.7);
+  z-index: 1;
+}

@@ -46,11 +46,14 @@ double-helix2d = """
 
 double-helix3d = """
   geom = new THREE.BoxGeometry 1, 1, 1
-  red  = new THREE.MeshBasicMaterial color: 0xdd0000
-  blue = new THREE.MeshBasicMaterial color: 0x0000dd
+  ogeom = new THREE.BoxGeometry 0.1, 0.1, 0.1
+  red  = new THREE.MeshPhongMaterial color: 0xdd0000
+  blue = new THREE.MeshPhongMaterial color: 0x0000dd
+
   light = new THREE.PointLight 0xffffff, 1, 100
-  light.position.set 0, 0, 30
+  light.position.set 0, 0, 0
   scene.add light
+
   camera.position.z = 35
 
   count = 50
