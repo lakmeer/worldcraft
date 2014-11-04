@@ -1,20 +1,20 @@
 
+hyp = (x, y, z, w) -> Math.sqrt x * x + y * y + z * z + w * w
+
 export class Quaternion
 
   (@x, @y, @z, @w) ->
 
   @from-orientation = ({ x, y, z, w }) -> new Quaternion x, y, z, w
 
-  hyp: -> Math.sqrt @x * @x + @y * @y + @z * @z + @w * @w
-
   invert: ->
-    @x = -@x; @y = -@y; @z = -@z
-    l = @hyp!
+    l = hyp -@x, -@y, -@z, @w
 
     if l is 0
       new Quaternion 0, 0, 0, 1
     else
-      new Quaternion @x * li, @y * li, @z * li, @w * li
+      li = 1/l
+      new Quaternion -@x * li, -@y * li, -@z * li, @w * li
 
   to-matrix: (invert) ->
     x2 = @x + @x; y2 = @y + @y; z2 = @z + @z

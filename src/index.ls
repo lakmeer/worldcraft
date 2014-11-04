@@ -57,8 +57,8 @@ double-helix3d = """
   camera.position.z = 35
 
   count = 50
-  speed = 0.002
-  r     = 5
+  @s = 0.002
+  @r = 5
 
   @cubes = for i in [0 to count]
     scene.add red-cube   = new THREE.Mesh geom, red
@@ -69,23 +69,41 @@ double-helix3d = """
 
   @frame = (time) ->
     for [ red, blue ], i in @cubes
-      red.position.z = -Math.sin(time*speed + i * Math.PI / 24) * r
-      red.position.x = -Math.cos(time*speed + i * Math.PI / 24) * r
-      blue.position.z = Math.sin(time*speed + i * Math.PI / 24) * r
-      blue.position.x = Math.cos(time*speed + i * Math.PI / 24) * r
+      red.position.z = -Math.sin(time*@s + i * Math.PI / 24) * @r
+      red.position.x = -Math.cos(time*@s + i * Math.PI / 24) * @r
+      blue.position.z = Math.sin(time*@s + i * Math.PI / 24) * @r
+      blue.position.x = Math.cos(time*@s + i * Math.PI / 24) * @r
 """
 
 
 # Assemble modules and set intial state
 
+viewport  = document.get-element-by-id \viewport
+camera    = document.get-element-by-id \camera
+
 evaluator.globals <<< { log, canvas: world.canvas, ctx: world.ctx }
 evaluator.globals <<< { THREE, scene: world.scene, camera: world.camera }
-editor.install document.body
+editor.install camera
 editor.load double-helix3d
 editor.on-execute evaluator~eval
-world.install document.body
+world.install viewport
 
-delay 300, ->
+
+# VR Testing
+
+VR = require \./vr-device
+
+VR.init ([ hmd, sensor ]) ->
   editor.execute-all!
-  world.start -> evaluator.scope.frame.apply evaluator.scope, &
+  world.start ->
+    evaluator.scope.frame.apply evaluator.scope, &
+    camera-orientation       = VR.get-camera-transform sensor
+    camera.style.transform   = VR.to-css-matrix camera-orientation
+    world.camera._quaternion = camera-orientation
+
+  document.add-event-listener \keydown, ({ which, key-code }) ~>
+    switch which
+    | 70 => viewport.moz-request-full-screen vr-display: hmd
+    | 90 => sensor.zero-sensor!
+
 

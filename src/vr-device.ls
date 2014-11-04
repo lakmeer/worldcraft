@@ -2,6 +2,7 @@
 # Helpers
 
 log = -> if LOGGING then console.apply console, &; &0
+id  = -> it
 
 
 # Require
@@ -29,7 +30,7 @@ onkey = ({ char-code }) ->
 
 # Request VR devices from UA
 
-export init = (λ-success, λ-error) ->
+export init = (λ-success, λ-error = id) ->
   log 'VR::Init - Searching for HMD'
   css-camera    := document.getElementById \camera
   css-container := document.getElementById \container
@@ -73,10 +74,12 @@ export init = (λ-success, λ-error) ->
 
 # Per-frame callback
 
-export frame = ->
-  requestAnimationFrame frame
-  o = Quaternion.from-orientation vr-sensor.get-state!orientation, true
-  m = o.to-matrix!
-  css-camera.style.transform = "matrix3d(#m) translate3d(0,0,0) rotateZ(180deg) rotateY(180deg)"
+export get-camera-transform = (vr-sensor) ->
+  o = Quaternion.from-orientation vr-sensor.get-state!orientation
+
+export to-css-matrix = (orientation) ->
+  #requestAnimationFrame frame
+  m = orientation.to-matrix!
+  transform = "matrix3d(#m) translate3d(0,0,0) rotateZ(180deg) rotateY(180deg)"
 
 

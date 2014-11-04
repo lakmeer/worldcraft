@@ -112,7 +112,7 @@ export class EditorCM extends Editor
     log "new Editor (#mode)"
 
     @dom = document.create-element \div
-    @dom.class-name = \editor
+    @dom.class-name = "editor threed"
 
     @cm = CodeMirror @dom, do
       mode: mode
